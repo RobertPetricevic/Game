@@ -8,7 +8,7 @@ GAME RULES:
 5.The first player to reach 100 points on GLOBAL score wins the game
 6. A player looses his ENTIRE score when he rolls two 6 in a row. After that, it's the next player's turn. 
 */
-let scores, roundScores, activePlayer, gamePlaying, previousDice;
+let scores, roundScores, activePlayer, gamePlaying, previousDice, input;
 
 init();
 
@@ -52,7 +52,14 @@ document.querySelector(".btn-hold").addEventListener("click", function() {
     scores[activePlayer] += roundScore;
     document.querySelector(`#score-${activePlayer}`).textContent =
       scores[activePlayer];
-    if (scores[activePlayer] >= 100) {
+    input = document.querySelector(".final-score").value;
+    let winningScore;
+    if (input) {
+      winningScore = input;
+    } else {
+      winningScore = 100;
+    }
+    if (scores[activePlayer] >= winningScore) {
       document.querySelector(`#name-${activePlayer}`).textContent = "Winner!";
       document.querySelector(".dice").style.display = "none";
       document
@@ -80,6 +87,7 @@ function nextPlayer() {
 
 document.querySelector(".btn-new").addEventListener("click", function() {
   init();
+  document.querySelector(".final-score").value = 0;
 });
 
 function init() {
